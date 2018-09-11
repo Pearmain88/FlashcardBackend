@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using FlashcardAPI.Models;
 using FlashcardAPI.Providers;
 using FlashcardAPI.Results;
+using FlashcardAPI.Data;
 
 namespace FlashcardAPI.Controllers
 {

@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using FlashcardAPI.Providers;
 using FlashcardAPI.Models;
+using FlashcardAPI.Data;
 
 namespace FlashcardAPI
 {
