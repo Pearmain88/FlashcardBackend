@@ -11,11 +11,27 @@ namespace Flashcard.Service
 {
     public class FlashcardService
     {
+        
         private readonly Guid _userID;
+        FlashcardKeyService flashcardService;
+        FlashcardValueService flashcardValueService;
+        private readonly IEnumerable<FlashcardListItem> _flashcardList;
+        private readonly IEnumerable<FlashcardValueListItem> _flashcardValues;
 
         public FlashcardService(Guid userID)
         {
             _userID = userID;
+            FlashcardKeyService flashcardService = new FlashcardKeyService(_userID);
+            FlashcardValueService flashcardValueService = new FlashcardValueService(_userID);
+            _flashcardList = flashcardService.GetFlashcardsForReview();
+            _flashcardValues = flashcardValueService.GetFlashcardsValues();
+        }
+
+        public FlashcardListItem[] GetFlashcards()
+        {
+            var flashcards = _flashcardList.ToArray();
+
+            return flashcards;
         }
 
         public bool CreateFlashCard(FlashcardCreate model)
@@ -46,6 +62,12 @@ namespace Flashcard.Service
             }
         }
 
+        public bool EditFlashCard(FlashcardEdit model)
+        {
+            bool key = flashcardService.UpdateFlashcardKey(model);
+            bool value = flashcardValueService.UpdateFlashcardValue(model);
 
+            return (key && value);
+        }
     }
 }

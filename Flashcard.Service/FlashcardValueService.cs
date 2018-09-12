@@ -8,50 +8,50 @@ using System.Threading.Tasks;
 
 namespace Flashcard.Service
 {
-    public class FlashcardKeyService
+    public class FlashcardValueService
     {
         private readonly Guid userID;
 
-        public FlashcardKeyService()
+        public FlashcardValueService()
         {
 
         }
 
-        public FlashcardKeyService(Guid userId)
+        public FlashcardValueService(Guid userId)
         {
             userID = userId;
         }
 
-        public IEnumerable<FlashcardListItem> GetFlashcardsForReview()
+        public IEnumerable<FlashcardValueListItem> GetFlashcardsValues()
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
-                        .FlashcardKeys
+                        .FlashcardValues
                         .Where(e => e.UserID == userID)
                         .Select(
-                            e => new FlashcardListItem
+                            e => new FlashcardValueListItem
                             {
                                 CardID = e.CardID,
-                                Term = e.Term,
-                                Definition = e.Definition,
-                                DeckIndex = e.DeckIndex
+                                CreateTime = e.CreateTime,
+                                ModifyTime = e.ModifyTime,
+                                LastReviewed = e.LastReviewed,
+                                NumberTimesReviewed = e.NumberTimesReviewed
                             });
                 return query.ToList();
             }
         }
 
-        public bool UpdateFlashcardKey(FlashcardEdit model)
+        public bool UpdateFlashcardValue(FlashcardEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .FlashcardKeys
+                        .FlashcardValues
                         .Single(e => e.CardID == model.CardID && e.UserID == userID);
-                entity.Term = model.Term;
-                entity.Definition = model.Definition;
+                entity.ModifyTime = DateTime.Now;
 
                 return ctx.SaveChanges() == 1;
             }
