@@ -12,11 +12,6 @@ namespace Flashcard.Service
     {
         private readonly Guid userID;
 
-        public FlashcardValueService()
-        {
-
-        }
-
         public FlashcardValueService(Guid userId)
         {
             userID = userId;
@@ -52,6 +47,20 @@ namespace Flashcard.Service
                         .FlashcardValues
                         .Single(e => e.CardID == model.CardID && e.UserID == userID);
                 entity.ModifyTime = DateTime.Now;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool DeleteFlashcardValue(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .FlashcardValues
+                        .Single(e => e.CardID == id && e.UserID == userID);
+                ctx.FlashcardValues.Remove(entity);
 
                 return ctx.SaveChanges() == 1;
             }

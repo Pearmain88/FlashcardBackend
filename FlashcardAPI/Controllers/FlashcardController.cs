@@ -42,17 +42,21 @@ namespace FlashcardAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-​
+            
             var service = CreateFlashcardService();
-​
-            if (!service.UpdateNote(flashcard))
+            
+            if (!service.EditFlashCard(flashcard))
                 return InternalServerError();
-​
+            
             return Ok();
         }
-​
-            public IHttpActionResult Delete(int id)
+        
+        public IHttpActionResult Delete(int id)
         {
+            var service = CreateFlashcardService();
+            if (!service.DeleteFlashcard(id))
+                return InternalServerError();
+
             return Ok();
         }
 

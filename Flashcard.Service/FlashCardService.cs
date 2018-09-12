@@ -21,8 +21,8 @@ namespace Flashcard.Service
         public FlashcardService(Guid userID)
         {
             _userID = userID;
-            FlashcardKeyService flashcardService = new FlashcardKeyService(_userID);
-            FlashcardValueService flashcardValueService = new FlashcardValueService(_userID);
+            flashcardService = new FlashcardKeyService(_userID);
+            flashcardValueService = new FlashcardValueService(_userID);
             _flashcardList = flashcardService.GetFlashcardsForReview();
             _flashcardValues = flashcardValueService.GetFlashcardsValues();
         }
@@ -66,6 +66,14 @@ namespace Flashcard.Service
         {
             bool key = flashcardService.UpdateFlashcardKey(model);
             bool value = flashcardValueService.UpdateFlashcardValue(model);
+
+            return (key && value);
+        }
+
+        public bool DeleteFlashcard(int id)
+        {
+            bool key = flashcardService.DeleteFlashcardKey(id);
+            bool value = flashcardValueService.DeleteFlashcardValue(id);
 
             return (key && value);
         }
