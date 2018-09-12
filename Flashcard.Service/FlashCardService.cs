@@ -21,8 +21,8 @@ namespace Flashcard.Service
         public FlashcardService(Guid userID)
         {
             _userID = userID;
-            FlashcardKeyService flashcardService = new FlashcardKeyService(_userID);
-            FlashcardValueService flashcardValueService = new FlashcardValueService(_userID);
+            flashcardService = new FlashcardKeyService(_userID);
+            flashcardValueService = new FlashcardValueService(_userID);
             _flashcardList = flashcardService.GetFlashcardsForReview();
             _flashcardValues = flashcardValueService.GetFlashcardsValues();
         }

@@ -12,11 +12,6 @@ namespace Flashcard.Service
     {
         private readonly Guid userID;
 
-        public FlashcardKeyService()
-        {
-
-        }
-
         public FlashcardKeyService(Guid userId)
         {
             userID = userId;
