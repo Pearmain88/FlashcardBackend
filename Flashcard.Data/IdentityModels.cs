@@ -1,5 +1,7 @@
-﻿using System.Security.Claims;
+﻿using System.Data.Entity;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Flashcard.Data;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -29,5 +31,9 @@ namespace FlashcardAPI.Data
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<FlashcardKey> FlashcardKeys { get; set; }
+        public DbSet<FlashcardValue> FlashcardValues { get; set; }
+
     }
 }

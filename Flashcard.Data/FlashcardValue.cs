@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace Flashcard.Data
 {
-    public class FlashcardEditDetails
+    public class FlashcardValue
     {
         [Key]
-        public int CardPropertieID { get; set; }
+        public int FlashcardValueID { get; set; }
         public int CardID { get; set; }
         public Guid UserID { get; set; }
         public DateTime CreateTime { get; set; }
         public DateTime? ModifyTime { get; set; }
-        public DateTime LastReviewed { get; set; }
+        public DateTime? LastReviewed { get; set; }
         public int NumberTimesReviewed { get; set; }
-        public virtual Flashcard Flashcard { get; set; }
+
+        public virtual FlashcardKey Flashcard { get; set; }
     }
 }
