@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="FlashcardService.cs" />
     <Compile Include="FlashcardKeyService.cs" />
+    <Compile Include="FlashcardValueService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

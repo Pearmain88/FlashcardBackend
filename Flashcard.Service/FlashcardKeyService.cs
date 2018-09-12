@@ -56,5 +56,19 @@ namespace Flashcard.Service
                 return ctx.SaveChanges() == 1;
             }
         }
+
+        public bool DeleteFlashcardKey(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .FlashcardKeys
+                        .Single(e => e.CardID == id && e.UserID == userID);
+                ctx.FlashcardKeys.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }
