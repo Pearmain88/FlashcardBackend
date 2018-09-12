@@ -13,6 +13,18 @@ namespace FlashcardAPI.Controllers
     [Authorize]
     public class FlashcardController : ApiController
     {
+        public IHttpActionResult GetAll()
+        {
+            var service = CreateFlashcardService();
+            var flashcards = service.GetFlashcards();
+            return Ok(flashcards);
+        }
+
+        public IHttpActionResult Get(int id)
+        {
+            return Ok();
+        }
+
         public IHttpActionResult Post(FlashcardCreate flashcard)
         {
             if (!ModelState.IsValid)
@@ -23,6 +35,24 @@ namespace FlashcardAPI.Controllers
             if (!service.CreateFlashCard(flashcard))
                 return InternalServerError();
 
+            return Ok();
+        }
+
+        public IHttpActionResult Put(FlashcardEdit flashcard)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+​
+            var service = CreateFlashcardService();
+​
+            if (!service.UpdateNote(flashcard))
+                return InternalServerError();
+​
+            return Ok();
+        }
+​
+            public IHttpActionResult Delete(int id)
+        {
             return Ok();
         }
 
