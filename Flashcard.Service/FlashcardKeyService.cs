@@ -1,4 +1,5 @@
-﻿using Flashcard.Model;
+﻿using Flashcard.Data;
+using Flashcard.Model;
 using FlashcardAPI.Data;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,19 @@ namespace Flashcard.Service
                 ctx.FlashcardKeys.Remove(entity);
 
                 return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public FlashcardKey GetFlashcardKeyByID(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .FlashcardKeys
+                        .Single(e => e.UserID == userID && e.CardID == id);
+
+                return entity;
             }
         }
     }
