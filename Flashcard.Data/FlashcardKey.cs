@@ -12,19 +12,13 @@ namespace Flashcard.Data
 
         [Key]
         public int CardID { get; set; }
+        public int DeckID { get; set; }
+            
         public Guid UserID { get; set; }
         public string Term { get; set; }
         public string Definition { get; set; }
-        public int DeckIndex { get; set; }
+        
 
-
-        public FlashcardKey()
-        {
-        }
-
-        public FlashcardKey(string term, string def, int deckindex)
-        {
-
-        }
+        public virtual DeckData Deck { get; set; }
     }
 }

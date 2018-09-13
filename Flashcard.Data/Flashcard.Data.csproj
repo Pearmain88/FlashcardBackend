@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeckData.cs" />
     <Compile Include="FlashcardKey.cs" />
     <Compile Include="FlashcardValue.cs" />
     <Compile Include="IdentityModels.cs" />

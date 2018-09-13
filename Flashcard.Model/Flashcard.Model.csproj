@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeckCreate.cs" />
+    <Compile Include="DeckEdit.cs" />
+    <Compile Include="DeckListItem.cs" />
     <Compile Include="FlashcardCreate.cs" />
     <Compile Include="FlashcardDetails.cs" />
     <Compile Include="FlashcardEdit.cs" />
