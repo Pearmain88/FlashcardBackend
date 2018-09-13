@@ -42,7 +42,7 @@ namespace Flashcard.Service
                     UserID = _userID,
                     Term = model.Term,
                     Definition = model.Definition,
-                    DeckIndex = model.DeckIndex                    
+                    DeckID = model.DeckID                    
                 };
 
             var flashcardValue =
@@ -72,10 +72,9 @@ namespace Flashcard.Service
 
         public bool DeleteFlashcard(int id)
         {
-            bool value = flashcardValueService.DeleteFlashcardValue(id);
             bool key = flashcardKeyService.DeleteFlashcardKey(id);
 
-            return (key && value);
+            return (key);
         }
 
         public bool CheckID(int id)
@@ -100,7 +99,7 @@ namespace Flashcard.Service
                 CardID = key.CardID,
                 Term = key.Term,
                 Definition = key.Definition,
-                DeckIndex = key.DeckIndex,
+                DeckIndex = key.DeckID,
                 NumberTimesReviewed = value.NumberTimesReviewed,
                 CreateTime = value.CreateTime,
                 ModifyTime = value.ModifyTime,

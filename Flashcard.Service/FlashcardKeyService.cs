@@ -32,7 +32,7 @@ namespace Flashcard.Service
                                 CardID = e.CardID,
                                 Term = e.Term,
                                 Definition = e.Definition,
-                                DeckIndex = e.DeckIndex
+                                DeckIndex = e.DeckID
                             });
                 return query.ToList();
             }
@@ -62,6 +62,24 @@ namespace Flashcard.Service
                         .FlashcardKeys
                         .Single(e => e.CardID == id && e.UserID == userID);
                 ctx.FlashcardKeys.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool DeleteAllFlashcardKeyFromDeck(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .FlashcardKeys
+                        .Where(e => e.DeckID == id && e.UserID == userID);
+
+                foreach (var item in query)
+                {
+                    ctx.FlashcardKeys.Remove(item);
+                }
 
                 return ctx.SaveChanges() == 1;
             }
