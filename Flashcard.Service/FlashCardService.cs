@@ -72,8 +72,8 @@ namespace Flashcard.Service
 
         public bool DeleteFlashcard(int id)
         {
-            bool key = flashcardKeyService.DeleteFlashcardKey(id);
             bool value = flashcardValueService.DeleteFlashcardValue(id);
+            bool key = flashcardKeyService.DeleteFlashcardKey(id);
 
             return (key && value);
         }
