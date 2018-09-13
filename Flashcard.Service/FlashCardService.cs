@@ -13,7 +13,7 @@ namespace Flashcard.Service
     {
         
         private readonly Guid _userID;
-        FlashcardKeyService flashcardService;
+        FlashcardKeyService flashcardKeyService;
         FlashcardValueService flashcardValueService;
         private readonly IEnumerable<FlashcardListItem> _flashcardList;
         private readonly IEnumerable<FlashcardValueListItem> _flashcardValues;
@@ -21,9 +21,9 @@ namespace Flashcard.Service
         public FlashcardService(Guid userID)
         {
             _userID = userID;
-            flashcardService = new FlashcardKeyService(_userID);
+            flashcardKeyService = new FlashcardKeyService(_userID);
             flashcardValueService = new FlashcardValueService(_userID);
-            _flashcardList = flashcardService.GetFlashcardsForReview();
+            _flashcardList = flashcardKeyService.GetFlashcardsForReview();
             _flashcardValues = flashcardValueService.GetFlashcardsValues();
         }
 
@@ -64,7 +64,7 @@ namespace Flashcard.Service
 
         public bool EditFlashCard(FlashcardEdit model)
         {
-            bool key = flashcardService.UpdateFlashcardKey(model);
+            bool key = flashcardKeyService.UpdateFlashcardKey(model);
             bool value = flashcardValueService.UpdateFlashcardValue(model);
 
             return (key && value);
@@ -72,10 +72,42 @@ namespace Flashcard.Service
 
         public bool DeleteFlashcard(int id)
         {
-            bool key = flashcardService.DeleteFlashcardKey(id);
+            bool key = flashcardKeyService.DeleteFlashcardKey(id);
             bool value = flashcardValueService.DeleteFlashcardValue(id);
 
             return (key && value);
+        }
+
+        public bool CheckID(int id)
+        {
+            foreach (var item in _flashcardList)
+            {
+                if (item.CardID == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public FlashcardDetails GetFlashcardByID(int id)
+        {
+            var key = flashcardKeyService.GetFlashcardKeyByID(id);
+            var value = flashcardValueService.GetFlashcardValueByID(id);
+
+            var entity = new FlashcardDetails
+            {
+                CardID = key.CardID,
+                Term = key.Term,
+                Definition = key.Definition,
+                DeckIndex = key.DeckIndex,
+                NumberTimesReviewed = value.NumberTimesReviewed,
+                CreateTime = value.CreateTime,
+                ModifyTime = value.ModifyTime,
+                LastReviewed = value.LastReviewed
+            };
+
+            return entity;
         }
     }
 }

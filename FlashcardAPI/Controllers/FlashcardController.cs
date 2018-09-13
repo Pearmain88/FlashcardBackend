@@ -22,7 +22,17 @@ namespace FlashcardAPI.Controllers
 
         public IHttpActionResult Get(int id)
         {
-            return Ok();
+            var service = CreateFlashcardService();
+            if (service.CheckID(id))
+            {
+                var model = service.GetFlashcardByID(id);
+
+                return Ok(model);
+            }
+            else
+            {
+                return InternalServerError();
+            }
         }
 
         public IHttpActionResult Post(FlashcardCreate flashcard)
