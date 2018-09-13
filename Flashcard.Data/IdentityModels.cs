@@ -34,6 +34,6 @@ namespace FlashcardAPI.Data
 
         public DbSet<FlashcardKey> FlashcardKeys { get; set; }
         public DbSet<FlashcardValue> FlashcardValues { get; set; }
-
+        public DbSet<DeckData> Decks { get; set; }
     }
 }

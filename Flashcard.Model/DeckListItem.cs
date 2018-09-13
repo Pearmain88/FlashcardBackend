@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Flashcard.Model
 {
-    public class FlashcardCreate
+    public class DeckListItem
     {
-        public string Term { get; set; }
-        public string Definition { get; set; }
         public int DeckID { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public decimal PercentComplete { get; set; }
     }
 }
