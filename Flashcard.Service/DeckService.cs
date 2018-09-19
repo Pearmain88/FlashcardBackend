@@ -42,6 +42,27 @@ namespace Flashcard.Service
             }
         }
 
+        public DeckDetail GetDeckByID(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Decks
+                        .Single(e => e.UserID == _userID && e.DeckID == id);
+                        return new DeckDetail
+                        {
+                            DeckID = entity.DeckID,
+                            Title = entity.Title,
+                            Description = entity.Description,
+                            PercentComplete = entity.PercentComplete,
+                            CreateTime = entity.CreateTime,
+                            ModifyTime = entity.ModifyTime,
+                            LastReviewed = entity.LastReviewed
+                        };
+            }
+        }
+
         public bool CreateDeck(DeckCreate model)
         {
             var entity =
@@ -71,6 +92,7 @@ namespace Flashcard.Service
                         .Single(e => e.DeckID == model.DeckID && e.UserID == _userID);
                 entity.Title = model.Title;
                 entity.Description = model.Description;
+                entity.ModifyTime = DateTime.Now;
 
                 return ctx.SaveChanges() == 1;
             }
