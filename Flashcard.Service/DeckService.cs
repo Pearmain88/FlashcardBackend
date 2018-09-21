@@ -92,7 +92,7 @@ namespace Flashcard.Service
                         .Single(e => e.DeckID == model.DeckID && e.UserID == _userID);
                 entity.Title = model.Title;
                 entity.Description = model.Description;
-                entity.ModifyTime = DateTime.Now;
+                entity.ModifyTime = (DateTime.Now);
 
                 return ctx.SaveChanges() == 1;
             }
