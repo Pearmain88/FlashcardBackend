@@ -20,6 +20,14 @@ namespace FlashcardAPI.Controllers
             return Ok(decks);
         }
 
+        public IHttpActionResult GetDeck(int id)
+        {
+            var service = CreateDeckService();
+            var model = service.GetDeckByID(id);
+
+            return Ok(model);
+        }
+
         public IHttpActionResult Post(DeckCreate deck)
         {
             if (!ModelState.IsValid)
