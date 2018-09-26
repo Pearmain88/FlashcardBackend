@@ -58,7 +58,7 @@ namespace Flashcard.Service
                 ctx.FlashcardKeys.Add(entity);
                 ctx.FlashcardValues.Add(flashcardValue);
 
-                return ctx.SaveChanges() == 1;
+                return ctx.SaveChanges() == 2;
             }
         }
 
