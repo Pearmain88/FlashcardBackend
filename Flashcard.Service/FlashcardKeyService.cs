@@ -32,7 +32,8 @@ namespace Flashcard.Service
                                 CardID = e.CardID,
                                 Term = e.Term,
                                 Definition = e.Definition,
-                                DeckIndex = e.DeckID
+                                DeckIndex = e.DeckID,
+                                LevelOfUnderstanding = e.LevelOfUnderstanding
                             });
                 return query.ToList();
             }
@@ -48,6 +49,7 @@ namespace Flashcard.Service
                         .Single(e => e.CardID == model.CardID && e.UserID == userID);
                 entity.Term = model.Term;
                 entity.Definition = model.Definition;
+                entity.LevelOfUnderstanding = 0;
 
                 return ctx.SaveChanges() == 1;
             }
