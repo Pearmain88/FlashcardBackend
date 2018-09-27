@@ -27,8 +27,14 @@ namespace Flashcard.Service
             _flashcardValues = flashcardValueService.GetFlashcardsValues();
         }
 
-        public FlashcardListItem[] GetFlashcards()
+        public FlashcardListItem[] GetFlashcards(int id)
         {
+            var selectedFlashcards = new List<FlashcardListItem>();
+            foreach (var item in _flashcardList.ToArray())
+            {
+                if (item.DeckIndex == id)
+                selectedFlashcards.Add(item);
+            }
             var flashcards = _flashcardList.OrderBy(o => o.LevelOfUnderstanding).ToArray();
             
             return flashcards;
@@ -90,9 +96,9 @@ namespace Flashcard.Service
             return false;
         }
 
-        public FlashcardDetails GetFlashcardByID(int id)
+        public FlashcardDetails GetFlashcardByID(int id, int did)
         {
-            var key = flashcardKeyService.GetFlashcardKeyByID(id);
+            var key = flashcardKeyService.GetFlashcardKeyByID(id, did);
             var value = flashcardValueService.GetFlashcardValueByID(id);
 
             var entity = new FlashcardDetails

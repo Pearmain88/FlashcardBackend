@@ -13,20 +13,20 @@ namespace FlashcardAPI.Controllers
     [Authorize]
     public class FlashcardController : ApiController
     {
-        public IHttpActionResult GetAll()
+        public IHttpActionResult GetAll(int did)
         {
             var service = CreateFlashcardService();
-            var flashcards = service.GetFlashcards();
+            var flashcards = service.GetFlashcards(did);
             return Ok(flashcards);
         }
 
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int id, int did)
         {
             var service = CreateFlashcardService();
             if (!service.CheckID(id))
                 return InternalServerError();
             
-            var model = service.GetFlashcardByID(id);
+            var model = service.GetFlashcardByID(id, did);
             return Ok(model);
         }
 

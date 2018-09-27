@@ -87,14 +87,14 @@ namespace Flashcard.Service
             }
         }
 
-        public FlashcardKey GetFlashcardKeyByID(int id)
+        public FlashcardKey GetFlashcardKeyByID(int id, int did)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .FlashcardKeys
-                        .Single(e => e.UserID == userID && e.CardID == id);
+                        .Single(e => e.UserID == userID && e.CardID == id && e.DeckID == did);
 
                 return entity;
             }
