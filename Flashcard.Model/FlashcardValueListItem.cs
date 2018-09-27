@@ -13,5 +13,6 @@ namespace Flashcard.Model
         public DateTime? ModifyTime { get; set; }
         public DateTime? LastReviewed { get; set; }
         public int NumberTimesReviewed { get; set; }
+        public int LevelOfUnderstanding { get; set; }
     }
 }

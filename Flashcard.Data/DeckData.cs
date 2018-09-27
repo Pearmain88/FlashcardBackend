@@ -19,6 +19,6 @@ namespace Flashcard.Data
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public decimal PercentComplete { get; set; }
+        public int PercentComplete { get; set; }
     }
 }

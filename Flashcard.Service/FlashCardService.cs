@@ -15,32 +15,40 @@ namespace Flashcard.Service
         private readonly Guid _userID;
         FlashcardKeyService flashcardKeyService;
         FlashcardValueService flashcardValueService;
+        DeckService deckService;
         private readonly IEnumerable<FlashcardListItem> _flashcardList;
-        private readonly IEnumerable<FlashcardValueListItem> _flashcardValues;
 
         public FlashcardService(Guid userID)
         {
             _userID = userID;
             flashcardKeyService = new FlashcardKeyService(_userID);
             flashcardValueService = new FlashcardValueService(_userID);
+            deckService = new DeckService(_userID);
             _flashcardList = flashcardKeyService.GetFlashcardsForReview();
-            _flashcardValues = flashcardValueService.GetFlashcardsValues();
         }
 
         public FlashcardListItem[] GetFlashcards(int id)
         {
-            var selectedFlashcards = new List<FlashcardListItem>();
-            foreach (var item in _flashcardList.ToArray())
+            using (var ctx = new ApplicationDbContext())
             {
-                if (item.DeckIndex == id)
-                selectedFlashcards.Add(item);
+                var query =
+                    ctx
+                        .FlashcardKeys
+                        .Where(e => e.UserID == _userID)
+                        .Select(
+                        e => new FlashcardListItem
+                        {
+                            CardID = e.CardID,
+                            Term = e.Term,
+                            Definition = e.Definition,
+                            LevelOfUnderstanding = e.LevelOfUnderstanding,
+                            DeckIndex = e.DeckID
+                        });
+                return query.OrderBy(o => o.LevelOfUnderstanding).ToArray();
             }
-            var flashcards = _flashcardList.OrderBy(o => o.LevelOfUnderstanding).ToArray();
-            
-            return flashcards;
         }
 
-        public bool CreateFlashCard(FlashcardCreate model)
+        public bool CreateFlashCard(FlashcardCreate model) 
         {
             var entity =
                 new FlashcardKey()
@@ -114,6 +122,38 @@ namespace Flashcard.Service
             };
 
             return entity;
+        }
+
+        public int GetDeckID(int CardID)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .FlashcardKeys
+                        .Single(e => e.CardID == CardID);
+
+                return entity.DeckID;
+            }
+        }
+
+        public bool UpdateDeckPercent(int DeckID)
+        {
+            var flashcards = GetFlashcards(DeckID);
+            int total = 0;
+            int average = 0;
+
+            foreach (var item in flashcards)
+            {
+                total += item.LevelOfUnderstanding;
+            }
+
+            if (flashcards.Length != 0)
+            {
+                average = (total * 100) / (flashcards.Length * 2);
+            }
+
+            return deckService.EditDeck(average, DeckID);
         }
     }
 }

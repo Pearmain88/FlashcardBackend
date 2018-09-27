@@ -40,6 +40,7 @@ namespace FlashcardAPI.Controllers
             if (!service.CreateFlashCard(flashcard))
                 return InternalServerError();
 
+            service.UpdateDeckPercent(flashcard.DeckID);
             return Ok();
         }
 
@@ -52,7 +53,8 @@ namespace FlashcardAPI.Controllers
             
             if (!service.EditFlashCard(flashcard))
                 return InternalServerError();
-            
+
+            service.UpdateDeckPercent(service.GetDeckID(flashcard.CardID));
             return Ok();
         }
         

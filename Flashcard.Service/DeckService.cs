@@ -12,14 +12,10 @@ namespace Flashcard.Service
     public class DeckService
     {
         private readonly Guid _userID;
-        FlashcardKeyService flashcardKeyService;
-        FlashcardValueService flashcardValueService;
 
         public DeckService(Guid userID)
         {
             _userID = userID;
-            flashcardKeyService = new FlashcardKeyService(_userID);
-            flashcardValueService = new FlashcardValueService(_userID);
         }
 
         public IEnumerable<DeckListItem> GetDecks()
@@ -93,6 +89,20 @@ namespace Flashcard.Service
                 entity.Title = model.Title;
                 entity.Description = model.Description;
                 entity.ModifyTime = (DateTime.Now);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool EditDeck(int average, int DeckID)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Decks
+                        .Single(e => e.DeckID == DeckID && e.UserID == _userID);
+                entity.PercentComplete = average;
 
                 return ctx.SaveChanges() == 1;
             }

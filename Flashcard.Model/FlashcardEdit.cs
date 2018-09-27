@@ -11,5 +11,6 @@ namespace Flashcard.Model
         public int CardID { get; set; }
         public string Term { get; set; }
         public string Definition { get; set; }
+        public int LevelofUnderstanding { get; set; }
     }
 }

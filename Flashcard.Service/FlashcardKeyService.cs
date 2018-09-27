@@ -49,7 +49,14 @@ namespace Flashcard.Service
                         .Single(e => e.CardID == model.CardID && e.UserID == userID);
                 entity.Term = model.Term;
                 entity.Definition = model.Definition;
-                entity.LevelOfUnderstanding = 0;
+                if (entity.LevelOfUnderstanding != model.LevelofUnderstanding)
+                {
+                    entity.LevelOfUnderstanding = model.LevelofUnderstanding;
+                }
+                else
+                {
+                    return true;
+                }
 
                 return ctx.SaveChanges() == 1;
             }
