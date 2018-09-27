@@ -35,8 +35,8 @@ namespace Flashcard.Service
                 if (item.DeckIndex == id)
                 selectedFlashcards.Add(item);
             }
-            var flashcards = selectedFlashcards.ToArray();
-
+            var flashcards = _flashcardList.OrderBy(o => o.LevelOfUnderstanding).ToArray();
+            
             return flashcards;
         }
 
@@ -48,7 +48,8 @@ namespace Flashcard.Service
                     UserID = _userID,
                     Term = model.Term,
                     Definition = model.Definition,
-                    DeckID = model.DeckID                    
+                    DeckID = model.DeckID,
+                    LevelOfUnderstanding = 0
                 };
 
             var flashcardValue =

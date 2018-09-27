@@ -17,7 +17,8 @@ namespace Flashcard.Data
         public Guid UserID { get; set; }
         public string Term { get; set; }
         public string Definition { get; set; }
-        
+        public int LevelOfUnderstanding { get; set; }
+
 
         public virtual DeckData Deck { get; set; }
     }

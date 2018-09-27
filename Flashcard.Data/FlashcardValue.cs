@@ -18,8 +18,7 @@ namespace Flashcard.Data
         public DateTime? ModifyTime { get; set; }
         public DateTime? LastReviewed { get; set; }
         public int NumberTimesReviewed { get; set; }
-
-
+    
         public virtual FlashcardKey Flashcard { get; set; }
     }
 }
