@@ -29,8 +29,8 @@ namespace Flashcard.Service
 
         public FlashcardListItem[] GetFlashcards()
         {
-            var flashcards = _flashcardList.ToArray();
-
+            var flashcards = _flashcardList.OrderBy(o => o.LevelOfUnderstanding).ToArray();
+            
             return flashcards;
         }
 
@@ -42,7 +42,8 @@ namespace Flashcard.Service
                     UserID = _userID,
                     Term = model.Term,
                     Definition = model.Definition,
-                    DeckID = model.DeckID                    
+                    DeckID = model.DeckID,
+                    LevelOfUnderstanding = 0
                 };
 
             var flashcardValue =

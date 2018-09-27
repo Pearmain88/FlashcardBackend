@@ -33,7 +33,7 @@ namespace Flashcard.Service
                                 CreateTime = e.CreateTime,
                                 ModifyTime = e.ModifyTime,
                                 LastReviewed = e.LastReviewed,
-                                NumberTimesReviewed = e.NumberTimesReviewed
+                                NumberTimesReviewed = e.NumberTimesReviewed,
                             });
                 return query.ToList();
             }
